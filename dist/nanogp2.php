@@ -188,7 +188,7 @@
 					// filter albums (see configuration)
           
 					global $albums_filter;
-          $value = $v['title'];
+          $value = (array_key_exists('title', $v) ? $v['title'] : '');
 					$filter = false;
           foreach( $albums_filter as $one_filter ) {
             if (stripos($value, $one_filter) !== false) {
@@ -221,7 +221,7 @@
 				}
 			}
 
-			return $received['nextPageToken'];
+			return (array_key_exists('nextPageToken', $received) ? $received['nextPageToken'] : '');
 
     }
     else {
