@@ -110,12 +110,13 @@
 		$r = '';
 		do {
 			// loop until no next page token
+			$initial_r = $r;
 			$r = send_gprequest( $url, 'photo', $r );
 			if( $r === 'token_expired') {
 				// error -> get a new access token
 				get_new_access_token();
 				// send request again, with the new access token
-				$r=send_gprequest( $url, 'photo', '' );
+				$r=send_gprequest( $url, 'photo', $initial_r );
 			}
 		} while( $r != '' );
 
