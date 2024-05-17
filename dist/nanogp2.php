@@ -80,12 +80,14 @@
 		$r = '';
 		do {
 			// loop until no next page token
+			$initial_r = $r;
 			$r = send_gprequest( $url, 'album', $r );
 			if( $r === 'token_expired') {
 				// error -> get a new access token
 				get_new_access_token();
 				// send request again, with the new access token
-				$r=send_gprequest( $url, 'album', '' );
+				// but repeating the pagetoken from the last request
+				$r=send_gprequest( $url, 'album', $initial_r );
 			}
 		} while( $r != '' );
 
